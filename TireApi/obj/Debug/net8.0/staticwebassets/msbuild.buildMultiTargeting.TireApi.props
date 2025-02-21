@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\TireApi.props" />
+</Project>
