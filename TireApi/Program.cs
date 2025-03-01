@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using TireApi.EfCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<EF_DataContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Ef_Postgres_Db")));
 
 var app = builder.Build();
 
