@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TireApi.EfCore;
+using TireApi.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<EF_DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Ef_Postgres_Db")));
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();
 
