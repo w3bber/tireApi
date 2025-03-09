@@ -10,8 +10,8 @@ namespace TireApi.Models
 
         public int ServiceTypeId { get; set; }
 
-        public AppointmentModel? Appointment { get; set; }
+/*        public AppointmentModel? Appointment { get; set; }
 
-        public ServiceTypeModel? ServiceType { get; set; }
+        public ServiceTypeModel? ServiceType { get; set; }*/
     }
 }

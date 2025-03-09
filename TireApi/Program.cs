@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<EF_DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Ef_Postgres_Db")));
-builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

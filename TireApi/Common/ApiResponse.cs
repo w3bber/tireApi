@@ -1,4 +1,4 @@
-﻿namespace TireApi.ApiResponse
+﻿namespace TireApi.Common
 {
     public class ApiResponse
     {

@@ -9,6 +9,5 @@ namespace TireApi.Models
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int Duration { get; set; } // в минутах
-        public ICollection<AppointmentServiceTypeModel>? AppointmentServiceTypes { get; set; }
     }
 }

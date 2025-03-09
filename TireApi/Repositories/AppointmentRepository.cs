@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TireApi.EfCore;
+using TireApi.Repositories.Interfaces;
 
 namespace TireApi.Repositories
 {
-    public class AppointmentRepository
+    public class AppointmentRepository : IAppointmentRepository
     {
         private readonly EF_DataContext _context;
 
@@ -47,7 +48,7 @@ namespace TireApi.Repositories
             return existingAppointment;
         }
 
-        public async Task<bool> DeleteClientAsync(int appointmentId)
+        public async Task<bool> DeleteAppointmentAsync(int appointmentId)
         {
             var deletedRows = await _context.Clients
                 .Where(id => id.Id == appointmentId)

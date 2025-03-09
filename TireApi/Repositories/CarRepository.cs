@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TireApi.EfCore;
+using TireApi.Repositories.Interfaces;
 
 namespace TireApi.Repositories
 {
-    public class CarRepository
+    public class CarRepository : ICarRepository
     {
         private readonly EF_DataContext _context;
         public CarRepository(EF_DataContext context) => _context = context;

@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TireApi.EfCore;
+using TireApi.Repositories.Interfaces;
 
 namespace TireApi.Repositories
 {
-    public class EmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private readonly EF_DataContext _context;
         public EmployeeRepository(EF_DataContext context) => _context = context;
@@ -20,7 +21,7 @@ namespace TireApi.Repositories
         {
             return await _context.Employees
                 .AsNoTracking()
-                .Include (c => c.Appointments)
+                .Include(c => c.Appointments)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
@@ -39,10 +40,10 @@ namespace TireApi.Repositories
             return employee;
         }
 
-        public async Task<bool> DeleteEmlployeeAsync(int emplyeeId)
+        public async Task<bool> DeleteEmployeeAsync(int employeeId)
         {
             var deletedRows = await _context.Employees
-                .Where(id => id.Id == emplyeeId)
+                .Where(id => id.Id == employeeId)
                 .ExecuteDeleteAsync();
             return deletedRows > 0;
         }

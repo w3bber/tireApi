@@ -10,6 +10,6 @@ namespace TireApi.Models
         public string Status { get; set; } = string.Empty;
         public int EmployeeId { get; set; }
         public int CarId { get; set; }
-        public ICollection<AppointmentServiceTypeModel>? AppointmentServiceTypes { get; set; }
+        public List<int> ServiceTypeIds { get; set; } = new();
     }
 }

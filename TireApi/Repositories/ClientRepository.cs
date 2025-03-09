@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TireApi.EfCore;
+using TireApi.Repositories.Interfaces;
 
 namespace TireApi.Repositories
 {
-    public class ClientRepository
+    public class ClientRepository : IClientRepository
     {
         private readonly EF_DataContext _context;
 
@@ -45,7 +46,7 @@ namespace TireApi.Repositories
             var deletedRows = await _context.Clients
                 .Where(id => id.Id == clientId)
                 .ExecuteDeleteAsync();
-            return deletedRows > 0;   
+            return deletedRows > 0;
         }
     }
 }

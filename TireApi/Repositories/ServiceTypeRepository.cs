@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TireApi.EfCore;
+using TireApi.Repositories.Interfaces;
 
 namespace TireApi.Repositories
 {
-    public class ServiceTypeRepository
+    public class ServiceTypeRepository : IServiceTypeRepository
     {
         private readonly EF_DataContext _context;
 
@@ -21,7 +22,7 @@ namespace TireApi.Repositories
         {
             return await _context.ServiceTypes
                 .AsNoTracking()
-                .Include (c => c.AppointmentServiceTypes)
+                .Include(c => c.AppointmentServiceTypes)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 

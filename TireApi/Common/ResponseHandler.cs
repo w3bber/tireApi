@@ -1,4 +1,4 @@
-﻿namespace TireApi.ApiResponse
+﻿namespace TireApi.Common
 {
     public class ResponseHandler
     {
@@ -12,7 +12,6 @@
         public static ApiResponse GetAppResponse(ResponseType type, object? contract)
         {
             ApiResponse response;
-
             response = new ApiResponse { ResponseData = contract };
             switch (type)
             {
