@@ -14,6 +14,11 @@ namespace TireApi.Models
         public int ClientId { get; set; }
         public List<int>? AppointmentIds { get; set; }
 
+        public CarModel()
+        {
+            
+        }
+
         public CarModel(int id, string brand, string model, decimal tireSize, int year, string numbers, int clientId, List<int>? appointmentIds)
         {
             Id = id;

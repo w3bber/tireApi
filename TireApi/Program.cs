@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using TireApi.EfCore;
 using TireApi.Mappers;
+using TireApi.Services.Interfaces;
+using TireApi.Services;
+using TireApi.Repositories.Interfaces;
+using TireApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<EF_DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Ef_Postgres_Db")));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IServiceTypeRepository, ServiceTypeRepository>();
+builder.Services.AddScoped<IClientService, ClientService>(); 
+builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IServiceTypeService, ServiceTypeService>(); 
+builder.Services.AddScoped<IAppointmentService, AppointmentService>(); 
+
+
+
+
 
 var app = builder.Build();
 

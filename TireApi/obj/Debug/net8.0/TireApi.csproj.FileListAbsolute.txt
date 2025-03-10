@@ -136,3 +136,5 @@ C:\localfiles\education\3 курс\Практика\tireApi\TireApi\bin\Debug\ne
 C:\localfiles\education\3 курс\Практика\tireApi\TireApi\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\localfiles\education\3 курс\Практика\tireApi\TireApi\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\localfiles\education\3 курс\Практика\tireApi\TireApi\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\localfiles\education\3 курс\Практика\tireApi\TireApi\bin\Debug\net8.0\AutoMapper.dll
+C:\localfiles\education\3 курс\Практика\tireApi\TireApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

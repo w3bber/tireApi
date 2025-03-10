@@ -39,7 +39,6 @@ namespace TireApi.Services
         {
             if (clientModel == null)
                 return ResponseHandler.GetAppResponse(ResponseType.Failure, "Invalid client data");
-
             var createdClient = await _clientRepository.CreateClientAsync(_mapper.Map<Client>(clientModel));
             return ResponseHandler.GetAppResponse(ResponseType.Success, _mapper.Map<ClientModel>(createdClient));
         }

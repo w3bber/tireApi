@@ -28,7 +28,8 @@ namespace TireApi.Repositories
 
         public async Task<Client> CreateClientAsync(Client client)
         {
-            _context.Clients.Add(client);
+            client.Cars ??= new List<Car>();
+            await _context.Clients.AddAsync(client);
             await _context.SaveChangesAsync();
             return client;
         }
@@ -38,6 +39,7 @@ namespace TireApi.Repositories
             var client = await _context.Clients.FindAsync(updatedClient.Id);
             if (client == null) return null;
             _context.Entry(client).CurrentValues.SetValues(updatedClient);
+            await _context.SaveChangesAsync();
             return client;
         }
 
