@@ -27,13 +27,20 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IServiceTypeService, ServiceTypeService>(); 
-builder.Services.AddScoped<IAppointmentService, AppointmentService>(); 
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 
 
 
 
 
 var app = builder.Build();
+
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

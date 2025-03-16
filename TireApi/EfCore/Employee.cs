@@ -12,6 +12,6 @@ namespace TireApi.EfCore
 
         public string Role { get; set; } = string.Empty;
 
-        public ICollection<Appointment> Appointments { get; set; }
+        public ICollection<Appointment>? Appointments { get; set; }
     }
 }

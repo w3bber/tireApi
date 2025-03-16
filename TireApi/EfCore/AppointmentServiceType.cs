@@ -12,9 +12,9 @@ namespace TireApi.EfCore
         public int ServiceTypeId { get; set; }
 
         [ForeignKey("AppointmentId")]
-        public Appointment Appointment { get; set; }
+        public Appointment? Appointment { get; set; }
 
         [ForeignKey("ServiceTypeId")]
-        public ServiceType ServiceType { get; set; }
+        public ServiceType? ServiceType { get; set; }
     }
 }

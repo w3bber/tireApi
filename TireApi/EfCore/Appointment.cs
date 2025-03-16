@@ -14,11 +14,11 @@ namespace TireApi.EfCore
         // Внешние ключи
         public int EmployeeId { get; set; }
         [ForeignKey("EmployeeId")]
-        public Employee Employee { get; set; }
+        public Employee? Employee { get; set; }
 
         public int CarId { get; set; }
         [ForeignKey("CarId")]
-        public Car Car { get; set; }
-        public ICollection<AppointmentServiceType> AppointmentServiceTypes { get; set; }
+        public Car? Car { get; set; }
+        public ICollection<AppointmentServiceType>? AppointmentServiceTypes { get; set; }
     }
 }

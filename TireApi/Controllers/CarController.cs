@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Mvc;
 using TireApi.Models;
 using TireApi.Services.Interfaces;
 
@@ -8,51 +9,51 @@ namespace TireApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientController : ControllerBase
+    public class CarController : ControllerBase
     {
-        private readonly IClientService _clientService;
+        private readonly ICarService _carService;
 
-        public ClientController(IClientService clientService)
+        public CarController(ICarService carService)
         {
-            _clientService = clientService;
+            _carService = carService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var response = await _clientService.GetClientsAsync();
+            var response = await _carService.GetCarsAsync();
             return Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var response = await _clientService.GetClientByIdAsync(id);
+            var response = await _carService.GetCarByIdAsync(id);
             return Ok(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ClientModel model)
+        public async Task<IActionResult> Create([FromBody] CarModel car)
         {
-            var response = await _clientService.CreateClientAsync(model);
+            var response = await _carService.CreateCarAsync(car);
             return Ok(response);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ClientModel model)
+        public async Task<IActionResult> Update(int id, [FromBody] CarModel car)
         {
-            if(id != model.Id)
+            if(id != car.Id)
             {
                 return BadRequest("ID в пути и теле запроса не совпадают!");
             }
-            var response = await _clientService.UpdateClientAsync(model);
+            var response = await _carService.UpdateCarAsync(car);
             return Ok(response);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var response = await _clientService.DeleteClientAsync(id);
+            var response = await _carService.DeleteCarAsync(id);
             return Ok(response);
         }
     }

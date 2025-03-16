@@ -33,11 +33,12 @@ namespace TireApi.Repositories
             return car;
         }
 
-        public async Task<Car?> UpdateCarAsync(Car udatedCar)
+        public async Task<Car?> UpdateCarAsync(Car updatedCar)
         {
-            var car = await _context.Cars.FindAsync(udatedCar.Id);
+            var car = await _context.Cars.FindAsync(updatedCar.Id);
             if (car == null) return null;
-            _context.Entry(car).CurrentValues.SetValues(car);
+            _context.Entry(car).CurrentValues.SetValues(updatedCar);
+            await _context.SaveChangesAsync();
             return car;
         }
 
