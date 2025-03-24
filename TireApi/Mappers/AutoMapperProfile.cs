@@ -12,7 +12,8 @@ namespace TireApi.Mappers
             .ForMember(dest => dest.ServiceTypeIds, opt => opt.MapFrom(src => src.AppointmentServiceTypes.Select(ast => ast.ServiceTypeId).ToList()))
             .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<AppointmentModel, Appointment>()
-                .ForMember(dest => dest.AppointmentServiceTypes, opt => opt.MapFrom(src => src.ServiceTypeIds.Select(id => new AppointmentServiceType { ServiceTypeId = id })));
+                .ForMember(dest => dest.AppointmentServiceTypes, 
+                                    opt => opt.MapFrom(src => src.ServiceTypeIds.Select(id => new AppointmentServiceType { ServiceTypeId = id })));
             CreateMap<Car, CarModel>().ReverseMap();
             CreateMap<Client, ClientModel>().ReverseMap();
             CreateMap<Employee, EmployeeModel>().ReverseMap();

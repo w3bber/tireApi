@@ -277,3 +277,4 @@ C:\localfiles\education\3rd\Практика\tireApi\TireApi\obj\Debug\net8.0\re
 C:\localfiles\education\3rd\Практика\tireApi\TireApi\obj\Debug\net8.0\TireApi.pdb
 C:\localfiles\education\3rd\Практика\tireApi\TireApi\obj\Debug\net8.0\TireApi.genruntimeconfig.cache
 C:\localfiles\education\3rd\Практика\tireApi\TireApi\obj\Debug\net8.0\ref\TireApi.dll
+C:\localfiles\education\3rd\Практика\tireApi\TireApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
