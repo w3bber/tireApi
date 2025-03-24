@@ -8,7 +8,7 @@ namespace TireApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServiceTypeController : ControllerBase
+    public class ServiceTypeController : BaseController
     {
         private readonly IServiceTypeService _serviceTypeService;
         public ServiceTypeController(IServiceTypeService serviceTypeService)
@@ -20,7 +20,7 @@ namespace TireApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var response = await _serviceTypeService.GetServiceTypesAsync();
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         // GET api/<ServiceTypeController>/5
@@ -28,7 +28,7 @@ namespace TireApi.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var response = await _serviceTypeService.GetServiceTypeByIdAsync(id);
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         // POST api/<ServiceTypeController>
@@ -36,7 +36,7 @@ namespace TireApi.Controllers
         public async Task<IActionResult> Create([FromBody] ServiceTypeModel model)
         {
             var response = await _serviceTypeService.CreateServiceTypeAsync(model);
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         // PUT api/<ServiceTypeController>/5
@@ -48,7 +48,7 @@ namespace TireApi.Controllers
                 return BadRequest("id not matched");
             }
             var response = await _serviceTypeService.UpdateServiceTypeAsync(model);
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         // DELETE api/<ServiceTypeController>/5
@@ -56,7 +56,7 @@ namespace TireApi.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _serviceTypeService.DeleteServiceTypeAsync(id);
-            return Ok(response);
+            return CreateResponse(response);
         }
     }
 }

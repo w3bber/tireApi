@@ -39,9 +39,9 @@ namespace TireApi.Services
         public async Task<ApiResponse> CreateServiceTypeAsync(ServiceTypeModel serviceTypeModel)
         {
             if (serviceTypeModel == null)
-                return ResponseHandler.GetAppResponse(ResponseType.Failure, "Invalid data");
+                return ResponseHandler.GetAppResponse(ResponseType.BadRequest, "Invalid data");
             var createdServiceType = await _serviceTypeRepository.CreateServiceTypeAsync(_mapper.Map<ServiceType>(serviceTypeModel));
-            return ResponseHandler.GetAppResponse(ResponseType.Success, _mapper.Map<ServiceTypeModel>(createdServiceType));
+            return ResponseHandler.GetAppResponse(ResponseType.Created, _mapper.Map<ServiceTypeModel>(createdServiceType));
         }
 
         public async Task<ApiResponse> UpdateServiceTypeAsync(ServiceTypeModel serviceTypeModel)
@@ -56,7 +56,7 @@ namespace TireApi.Services
         public async Task<ApiResponse> DeleteServiceTypeAsync(int serviceTypeId)
         {
             return await _serviceTypeRepository.DeleteServiceTypeAsync(serviceTypeId)
-                ? ResponseHandler.GetAppResponse(ResponseType.Success, "service type deleted")
+                ? ResponseHandler.GetAppResponse(ResponseType.Deleted, "service type deleted")
                 : ResponseHandler.GetAppResponse(ResponseType.NotFound, "servicy type not found");
         }
     }

@@ -56,12 +56,12 @@ namespace TireApi.Services
             try
             {
                 if (model == null)
-                    return ResponseHandler.GetAppResponse(ResponseType.Failure, "Invalid car data");
+                    return ResponseHandler.GetAppResponse(ResponseType.BadRequest, "Invalid car data");
 
                 var entity = _mapper.Map<Car>(model);
                 var createdEntity = await _carRepository.CreateCarAsync(entity);
 
-                return ResponseHandler.GetAppResponse(ResponseType.Success, _mapper.Map<CarModel>(createdEntity));
+                return ResponseHandler.GetAppResponse(ResponseType.Created, _mapper.Map<CarModel>(createdEntity));
             }
             catch (Exception ex)
             {
@@ -93,7 +93,7 @@ namespace TireApi.Services
             {
                 bool isDeleted = await _carRepository.DeleteCarAsync(id);
                 return isDeleted
-                    ? ResponseHandler.GetAppResponse(ResponseType.Success, "Car deleted")
+                    ? ResponseHandler.GetAppResponse(ResponseType.Deleted, "Car deleted")
                     : ResponseHandler.GetAppResponse(ResponseType.NotFound, "Car not found");
             }
             catch (Exception ex)

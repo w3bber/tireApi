@@ -1,4 +1,6 @@
-﻿namespace TireApi.Common
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace TireApi.Common
 {
     public class ApiResponse
     {
@@ -9,7 +11,13 @@
     public enum ResponseType
     {
         Success,
+        Created,
         NotFound,
-        Failure
+        Failure,
+        BadRequest,
+        Forbidden,
+        Deleted
     }
+
+
 }

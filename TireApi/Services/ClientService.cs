@@ -38,9 +38,9 @@ namespace TireApi.Services
         public async Task<ApiResponse> CreateClientAsync(ClientModel clientModel)
         {
             if (clientModel == null)
-                return ResponseHandler.GetAppResponse(ResponseType.Failure, "Invalid client data");
+                return ResponseHandler.GetAppResponse(ResponseType.BadRequest, "Invalid client data");
             var createdClient = await _clientRepository.CreateClientAsync(_mapper.Map<Client>(clientModel));
-            return ResponseHandler.GetAppResponse(ResponseType.Success, _mapper.Map<ClientModel>(createdClient));
+            return ResponseHandler.GetAppResponse(ResponseType.Created, _mapper.Map<ClientModel>(createdClient));
         }
 
         public async Task<ApiResponse> UpdateClientAsync(ClientModel updatedClientModel)
@@ -54,7 +54,7 @@ namespace TireApi.Services
         public async Task<ApiResponse> DeleteClientAsync(int id)
         {
             return await _clientRepository.DeleteClientAsync(id)
-                ? ResponseHandler.GetAppResponse(ResponseType.Success, "Client deleted")
+                ? ResponseHandler.GetAppResponse(ResponseType.Deleted, "Client deleted")
                 : ResponseHandler.GetAppResponse(ResponseType.NotFound, "Client not found");
         }
     }

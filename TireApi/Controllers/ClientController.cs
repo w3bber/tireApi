@@ -8,7 +8,7 @@ namespace TireApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientController : ControllerBase
+    public class ClientController : BaseController
     {
         private readonly IClientService _clientService;
 
@@ -21,21 +21,21 @@ namespace TireApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var response = await _clientService.GetClientsAsync();
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var response = await _clientService.GetClientByIdAsync(id);
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ClientModel model)
         {
             var response = await _clientService.CreateClientAsync(model);
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         [HttpPut("{id}")]
@@ -46,14 +46,14 @@ namespace TireApi.Controllers
                 return BadRequest("ID в пути и теле запроса не совпадают!");
             }
             var response = await _clientService.UpdateClientAsync(model);
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _clientService.DeleteClientAsync(id);
-            return Ok(response);
+            return CreateResponse(response);
         }
     }
 }

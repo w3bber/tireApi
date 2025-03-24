@@ -41,7 +41,7 @@ namespace TireApi.Services
                 return ResponseHandler.GetAppResponse(ResponseType.Failure, "Invalid client data");
 
             var createdEmployee = await _employeeRepository.CreateEmployeeAsync(_mapper.Map<Employee>(employeeModel));
-            return ResponseHandler.GetAppResponse(ResponseType.Success, _mapper.Map<Employee>(employeeModel));
+            return ResponseHandler.GetAppResponse(ResponseType.Created, _mapper.Map<Employee>(employeeModel));
         }
 
         public async Task<ApiResponse> UpdateEmployeeAsync(EmployeeModel updatedEmployeeModel)
@@ -55,7 +55,7 @@ namespace TireApi.Services
         public async Task<ApiResponse> DeleteEmployeeAsync(int id)
         {
             return await _employeeRepository.DeleteEmployeeAsync(id)
-                ? ResponseHandler.GetAppResponse(ResponseType.Success, "Client deleted")
+                ? ResponseHandler.GetAppResponse(ResponseType.Deleted, "Client deleted")
                 : ResponseHandler.GetAppResponse(ResponseType.NotFound, "Client not found");
         }
     }

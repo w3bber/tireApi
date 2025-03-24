@@ -24,6 +24,27 @@
                     response.Code = "2";
                     response.Message = "No record available";
                     break;
+                case ResponseType.Failure:
+                    response.Code = "3";
+                    response.Message = "Failed";
+                    break;
+                case ResponseType.BadRequest:
+                    response.Code = "4";
+                    response.Message = "Bad Request";
+                    break;
+                case ResponseType.Forbidden:
+                    response.Code = "5";
+                    response.Message = "Forbidden";
+                    break;
+                case ResponseType.Created:
+                    response.Code = "201";
+                    response.Message = "Created";
+                    break;
+                case ResponseType.Deleted:
+                    response.Code = "204";
+                    response.Message = "Deleted";
+                    break;
+
             }
             return response;
         }

@@ -8,7 +8,7 @@ namespace TireApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class EmployeeController : BaseController
     {
         private readonly IEmployeeService _employeeService;
         public EmployeeController(IEmployeeService employeeService)
@@ -20,14 +20,14 @@ namespace TireApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var response = await _employeeService.GetEmployeesAsync();
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var response = await _employeeService.GetEmployeeByIdAsync(id);
-            return Ok(response);
+            return CreateResponse(response);
         }
        
         // POST api/<EmployeeController>
@@ -35,7 +35,7 @@ namespace TireApi.Controllers
         public async Task<IActionResult> Create([FromBody] EmployeeModel employeeModel)
         {
             var response = await _employeeService.CreateEmployeeAsync(employeeModel);
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         // PUT api/<EmployeeController>/5
@@ -47,7 +47,7 @@ namespace TireApi.Controllers
                 return BadRequest("id not match");
             }
             var response = await _employeeService.UpdateEmployeeAsync(employeeModel);
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         // DELETE api/<EmployeeController>/5
@@ -55,7 +55,7 @@ namespace TireApi.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _employeeService.DeleteEmployeeAsync(id);
-            return Ok(response);
+            return CreateResponse(response);
         }
     }
 }

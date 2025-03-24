@@ -8,7 +8,7 @@ namespace TireApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppointmentController : ControllerBase
+    public class AppointmentController : BaseController
     {
         private readonly IAppointmentService _appointmentService;
 
@@ -21,7 +21,7 @@ namespace TireApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var response = await _appointmentService.GetAppointmentsAsync();
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         // GET api/<AppointmentController>/5
@@ -29,7 +29,7 @@ namespace TireApi.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var response = await _appointmentService.GetAppointmentByIdAsync(id);
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         // POST api/<AppointmentController>
@@ -37,7 +37,7 @@ namespace TireApi.Controllers
         public async Task<IActionResult> Create([FromBody] AppointmentModel model)
         {
             var response = await _appointmentService.CreateAppointmentAsync(model);
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         // PUT api/<AppointmentController>/5
@@ -49,7 +49,7 @@ namespace TireApi.Controllers
                 return BadRequest("id not matched");
             }
             var response = await _appointmentService.UpdateAppointmentAsync(model);
-            return Ok(response);
+            return CreateResponse(response);
         }
 
         // DELETE api/<AppointmentController>/5
@@ -57,7 +57,7 @@ namespace TireApi.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _appointmentService.DeleteAppointmentAsync(id);
-            return Ok(response);
+            return CreateResponse(response);
         }
     }
 }
