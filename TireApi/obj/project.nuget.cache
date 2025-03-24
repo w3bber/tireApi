@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gpWYtzfDJGM=",
+  "dgSpecHash": "6y8I/sCIfxk=",
   "success": true,
-  "projectFilePath": "C:\\localfiles\\education\\3 курс\\Практика\\tireApi\\TireApi\\TireApi.csproj",
+  "projectFilePath": "C:\\localfiles\\education\\3rd\\Практика\\tireApi\\TireApi\\TireApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

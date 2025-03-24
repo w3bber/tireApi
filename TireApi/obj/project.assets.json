@@ -3408,12 +3408,13 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\localfiles\\education\\3 курс\\Практика\\tireApi\\TireApi\\TireApi.csproj",
+      "projectUniqueName": "C:\\localfiles\\education\\3rd\\Практика\\tireApi\\TireApi\\TireApi.csproj",
       "projectName": "TireApi",
-      "projectPath": "C:\\localfiles\\education\\3 курс\\Практика\\tireApi\\TireApi\\TireApi.csproj",
+      "projectPath": "C:\\localfiles\\education\\3rd\\Практика\\tireApi\\TireApi\\TireApi.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\localfiles\\education\\3 курс\\Практика\\tireApi\\TireApi\\obj\\",
+      "outputPath": "C:\\localfiles\\education\\3rd\\Практика\\tireApi\\TireApi\\obj\\",
       "projectStyle": "PackageReference",
+      "UsingMicrosoftNETSdk": false,
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
@@ -3444,8 +3445,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+      }
     },
     "frameworks": {
       "net8.0": {

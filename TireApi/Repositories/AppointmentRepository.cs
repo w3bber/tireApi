@@ -43,7 +43,8 @@ namespace TireApi.Repositories
         {
             var existingAppointment = await _context.Appointments.FindAsync(appointment.Id);
             if (existingAppointment == null) return null;
-            _context.Entry(existingAppointment).CurrentValues.SetValues(appointment);
+            existingAppointment.Status = appointment.Status;
+            _context.Entry(existingAppointment).Property(a => a.Status).IsModified = true;
             await _context.SaveChangesAsync();
             return existingAppointment;
         }
