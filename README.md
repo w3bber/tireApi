@@ -94,3 +94,7 @@ dotnet run
 | GET    | `/api/ServiceType/{id}`  | Получить тип услуги по id    |
 | PUT    | `/api/ServiceType/{id}`  | Обновить тип услуги          |
 | DELETE | `/api/ServiceType/{id}`  | Удалить тип услуги по id     |
+
+## Примеры работы 
+# GET запросы
+![Успешное получение списка клиентов](assets/postman_screenshots/client_get_success.png)
