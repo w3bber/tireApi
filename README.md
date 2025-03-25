@@ -2,6 +2,9 @@
 
 TireApi - это Web API для службы шиномонтажа. Проект построен с использованием .NET Core, архитектурного подхода Repository-Service и Entity Framework Core для работы с базой данных.
 
+# [Тестирование в Postman](https://github.com/w3bber/tireApi/tree/main/assets/postman_screenshots)
+
+
 ## ER-Диаграмма
 ![](assets/er_diagram.png)
 
@@ -95,6 +98,4 @@ dotnet run
 | PUT    | `/api/ServiceType/{id}`  | Обновить тип услуги          |
 | DELETE | `/api/ServiceType/{id}`  | Удалить тип услуги по id     |
 
-## Примеры работы 
-# GET запросы
-![Успешное получение списка клиентов](assets/postman_screenshots/client_get_success.png)
+
