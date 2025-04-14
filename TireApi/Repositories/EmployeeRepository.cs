@@ -36,7 +36,8 @@ namespace TireApi.Repositories
         {
             var employee = await _context.Employees.FindAsync(updatedEmployee.Id);
             if (employee == null) return null;
-            _context.Entry(employee).CurrentValues.SetValues(employee);
+            _context.Entry(employee).CurrentValues.SetValues(updatedEmployee);
+            await _context.SaveChangesAsync();
             return employee;
         }
 

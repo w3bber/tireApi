@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TireApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1c4367cb06743f095e603125aaf4a1e9a580a081")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+026584081e984ddd4f91ca39be6004d1195bfa39")]
 [assembly: System.Reflection.AssemblyProductAttribute("TireApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TireApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

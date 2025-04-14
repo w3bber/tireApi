@@ -38,6 +38,7 @@ namespace TireApi.Repositories
             var serviceType = await _context.ServiceTypes.FindAsync(updatedServiceType.Id);
             if (serviceType == null) return null;
             _context.Entry(serviceType).CurrentValues.SetValues(updatedServiceType);
+            await _context.SaveChangesAsync();
             return serviceType;
         }
 

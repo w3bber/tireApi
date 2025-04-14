@@ -41,7 +41,7 @@ namespace TireApi.Services
                 return ResponseHandler.GetAppResponse(ResponseType.Failure, "Invalid client data");
 
             var createdEmployee = await _employeeRepository.CreateEmployeeAsync(_mapper.Map<Employee>(employeeModel));
-            return ResponseHandler.GetAppResponse(ResponseType.Created, _mapper.Map<Employee>(employeeModel));
+            return ResponseHandler.GetAppResponse(ResponseType.Created, _mapper.Map<EmployeeModel>(createdEmployee));
         }
 
         public async Task<ApiResponse> UpdateEmployeeAsync(EmployeeModel updatedEmployeeModel)

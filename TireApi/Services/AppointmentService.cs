@@ -21,7 +21,7 @@ namespace TireApi.Services
         public async Task<ApiResponse> GetAppointmentsAsync()
         {
             var appointments = await _appointmentRepository.GetAppointmentsAsync();
-            var mappedAppointments = _mapper.Map<List<AppointmentModel>>(appointments);
+            var mappedAppointments = _mapper.Map<List<AppointmentDetailsModel>>(appointments);
             return mappedAppointments.Any()
                 ? ResponseHandler.GetAppResponse(ResponseType.Success, mappedAppointments)
                 : ResponseHandler.GetAppResponse(ResponseType.NotFound, "No appointments found");
@@ -31,7 +31,7 @@ namespace TireApi.Services
         {
             var appointment = await _appointmentRepository.GetAppointmentByIdAsync(id);
             return appointment != null
-                ? ResponseHandler.GetAppResponse(ResponseType.Success, _mapper.Map<AppointmentModel>(appointment))
+                ? ResponseHandler.GetAppResponse(ResponseType.Success, _mapper.Map<AppointmentDetailsModel>(appointment))
                 : ResponseHandler.GetAppResponse(ResponseType.NotFound, "Appointment not found");
         }
 
