@@ -143,7 +143,7 @@
       async fetchAppointments() {
         this.isLoading = true;
         try {
-          const response = await axios.get('https://localhost:7288/api/Appointment');
+          const response = await axios.get(`${process.env.VUE_APP_API_URL}/Appointment`);
           if (response.data.code === "0") {
             this.appointments = response.data.responseData || [];
           } else {
@@ -160,9 +160,9 @@
       async showAddForm() {
         try {
           const [carResponse, employeeResponse, serviceResponse] = await Promise.all([
-            axios.get('https://localhost:7288/api/Car'),
-            axios.get('https://localhost:7288/api/Employee'),
-            axios.get('https://localhost:7288/api/ServiceType')
+            axios.get(`${process.env.VUE_APP_API_URL}/Car`),
+            axios.get(`${process.env.VUE_APP_API_URL}/Employee`),
+            axios.get(`${process.env.VUE_APP_API_URL}/ServiceType`)
           ]);
   
           this.cars = carResponse.data.code === "0" ? carResponse.data.responseData || [] : [];
@@ -183,9 +183,9 @@
       try {
         if (!this.cars.length || !this.employees.length || !this.services.length) {
           const [carResponse, employeeResponse, serviceResponse] = await Promise.all([
-            axios.get('https://localhost:7288/api/Car'),
-            axios.get('https://localhost:7288/api/Employee'),
-            axios.get('https://localhost:7288/api/ServiceType')
+            axios.get(`${process.env.VUE_APP_API_URL}/Car`),
+            axios.get(`${process.env.VUE_APP_API_URL}/Employee`),
+            axios.get(`${process.env.VUE_APP_API_URL}/ServiceType`)
           ]);
 
           this.cars = carResponse.data.code === "0" ? carResponse.data.responseData || [] : [];
@@ -220,14 +220,10 @@
           carId: this.newAppointment.car,
           serviceTypeIds: this.newAppointment.services
         };
-        console.log(JSON.stringify(payload, null, 2));
-
         if (this.isEditing) {
-            console.log('отправка');
-          await axios.put(`https://localhost:7288/api/Appointment/${this.editingId}`, payload);
-          console.log('отправились');
+          await axios.put(`${process.env.VUE_APP_API_URL}/Appointment/${this.editingId}`, payload);
         } else {
-          await axios.post('https://localhost:7288/api/Appointment', payload);
+          await axios.post(`${process.env.VUE_APP_API_URL}/Appointment`, payload);
         }
         this.closeForm();
         this.fetchAppointments();
@@ -237,8 +233,7 @@
     },
       async deleteAppointment(id) {
         try {
-          console.log(id);
-          const response = await axios.delete(`https://localhost:7288/api/Appointment/${id}`);
+          const response = await axios.delete(`${process.env.VUE_APP_API_URL}/Appointment/${id}`);
           if (response.status === 204) {
             this.appointments = this.appointments.filter(ap => ap.id !== id);
           } else {

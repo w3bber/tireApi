@@ -2,54 +2,70 @@
   <div class="p-4">
     <h2 class="text-2xl font-bold mb-4">Клиенты</h2>
     <div v-if="isLoading" class="text-center">Загрузка...</div>
-    <ul v-else class="bg-white shadow-md rounded-lg p-4">
-      <li class="p-2 border-b font-bold flex justify-between items-center">
-            <div class="flex flex-1">
-              <span class="w-1/3">Имя</span>
-              <span class="w-1/3">Телефон</span>
-              <span class="w-1/6">Email</span>
-            </div>
-          </li>
-      <li v-for="client in clients" :key="client.id" class="p-2 border-b last:border-b-0 flex justify-between items-center">
-        <div class="flex flex-1">
-          <span class="w-1/3">{{ client.name }}</span>
-          <span class="w-1/3">{{ client.phone }}</span>
-          <span class="w-1/3">{{ client.email }}</span>
-        </div>
-        <div class="space-x-2">
-          <button @click="editClient(client)" class="text-blue-500 hover:text-blue-700">
-            ✏️
-          </button>
-          <button @click="deleteClient(client.id)" class="text-red-500 hover:text-red-700">
-            🗑️
-          </button>
-        </div>
-      </li>
-    </ul>
+    <div v-else-if="clients.length === 0" class="text-red-500"> Нет записей для отображения. </div>
+    <table v-else class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="px-4 py-2 text-left">Имя</th>
+          <th class="px-4 py-2 text-left">Телефон</th>
+          <th class="px-4 py-2 text-left">Email</th>
+          <th class="px-4 py-2 text-left">Адрес</th>
+          <th class="px-4 py-2 text-left">Автомобиль</th>
+          <th class="px-4 py-2 text-left"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="client in clients" :key="client.id" class="border-t">
+          <td class="px-4 py-2">{{ client.name }}</td>
+          <td class="px-4 py-2">{{ client.phone }}</td>
+          <td class="px-4 py-2">{{ client.email }}</td>
+          <td class="px-4 py-2">{{ client.address }}</td>
+          <td class="px-4 py-2">
+            <ul>
+              <li v-for="car in client.cars" :key="car.id">
+                {{ car.brand + " " + car.model + " (" + car.numbers + ")" }}
+              </li>
+            </ul>
+          </td>
+          <td class="px-4 py-2 text-center">
+            <button @click="editClient(client)" class="text-blue-600 hover:text-blue-800 mr-2" title="Редактировать">
+              ✏️
+            </button>
+            <button @click="deleteClient(client.id)" class="text-red-600 hover:text-red-800" title="Удалить">
+              🗑️
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <button @click="showAddForm" class="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
       Добавить клиента
     </button>
     <!-- Модальное окно -->
     <div v-if="showForm" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+      <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto">
         <h3 class="text-xl font-bold mb-4">{{ isEditing ? 'Редактирование клиента' : 'Добавление клиента' }}</h3>
         <div class="space-y-4">
           <!-- Поля клиента -->
           <div class="relative">
             <label for="name" class="absolute -top-2 left-2 px-1 bg-white text-sm text-gray-600">Имя</label>
             <input v-model="newClient.name" id="name" type="text" class="w-full p-2 border rounded" />
+            <p v-if="errors.name" class="text-red-500 text-sm mt-1">{{ errors.name }}</p>
           </div>
           <div class="relative">
             <label for="phone" class="absolute -top-2 left-2 px-1 bg-white text-sm text-gray-600">Номер телефона</label>
             <input v-model="newClient.phone" id="phone" type="text" class="w-full p-2 border rounded" />
+            <p v-if="errors.phone" class="text-red-500 text-sm mt-1">{{ errors.phone }}</p>
           </div>
           <div class="relative">
             <label for="email" class="absolute -top-2 left-2 px-1 bg-white text-sm text-gray-600">Email</label>
             <input v-model="newClient.email" id="email" type="email" class="w-full p-2 border rounded" />
+            <p v-if="errors.email" class="text-red-500 text-sm mt-1">{{ errors.email }}</p>
           </div>
           <div class="relative">
             <label for="address" class="absolute -top-2 left-2 px-1 bg-white text-sm text-gray-600">Адрес</label>
             <input v-model="newClient.address" id="address" type="text" class="w-full p-2 border rounded" />
+            <p v-if="errors.address" class="text-red-500 text-sm mt-1">{{ errors.address }}</p>
           </div>
 
           <!-- Раздел автомобиля -->
@@ -58,10 +74,12 @@
             <div class="relative">
               <label for="brand" class="absolute -top-2 left-2 px-1 bg-white text-sm text-gray-600">Бренд</label>
               <input v-model="newClient.cars[0].brand" id="brand" type="text" class="w-full p-2 border rounded" />
+              <p v-if="errors.brand" class="text-red-500 text-sm mt-1">{{ errors.brand }}</p>
             </div>
             <div class="relative">
               <label for="model" class="absolute -top-2 left-2 px-1 bg-white text-sm text-gray-600">Модель</label>
               <input v-model="newClient.cars[0].model" id="model" type="text" class="w-full p-2 border rounded" />
+              <p v-if="errors.model" class="text-red-500 text-sm mt-1">{{ errors.model }}</p>
             </div>
             <div class="relative">
               <label for="tireSize" class="absolute -top-2 left-2 px-1 bg-white text-sm text-gray-600">Размер шин</label>
@@ -74,6 +92,7 @@
             <div class="relative">
               <label for="numbers" class="absolute -top-2 left-2 px-1 bg-white text-sm text-gray-600">Номера</label>
               <input v-model="newClient.cars[0].numbers" id="numbers" type="text" class="w-full p-2 border rounded" />
+              <p v-if="errors.numbers" class="text-red-500 text-sm mt-1">{{ errors.numbers }}</p>
             </div>
           </div>
         </div>
@@ -116,6 +135,15 @@ export default {
           numbers: "",
           clientId: 0
         }]
+      },
+      errors: {
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+        brand: "",
+        model: "",
+        numbers: ""
       }
     };
   },
@@ -126,7 +154,7 @@ export default {
     async fetchClients() {
       this.isLoading = true;
       try {
-        const response = await axios.get('https://localhost:7288/api/Client/');
+        const response = await axios.get(`${process.env.VUE_APP_API_URL}/Client/`);
         if (response.data.code === "0") {
           this.clients = response.data.responseData || [];
         } else {
@@ -159,6 +187,15 @@ export default {
           clientId: 0
         }]
       };
+      this.errors = {
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+        brand: "",
+        model: "",
+        numbers: ""
+      };
       this.showForm = true;
     },
     editClient(client) {
@@ -188,68 +225,140 @@ export default {
           clientId: client.id
         }]
       };
+      this.errors = {
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+        brand: "",
+        model: "",
+        numbers: ""
+      };
       this.showForm = true;
     },
+    validateForm() {
+      let isValid = true;
+      this.errors = {
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+        brand: "",
+        model: "",
+        numbers: ""
+      };
+
+      // Проверка имени
+      if (!this.newClient.name.trim()) {
+        this.errors.name = "Имя обязательно для заполнения";
+        isValid = false;
+      }
+
+      // Проверка телефона (только цифры, не пустое)
+      const phoneRegex = /^[0-9]+$/;
+      if (!this.newClient.phone.trim()) {
+        this.errors.phone = "Номер телефона обязателен для заполнения";
+        isValid = false;
+      } else if (!phoneRegex.test(this.newClient.phone.trim())) {
+        this.errors.phone = "Номер телефона должен содержать только цифры";
+        isValid = false;
+      }
+
+      // Проверка email (не пустое, содержит @)
+      if (!this.newClient.email.trim()) {
+        this.errors.email = "Email обязателен для заполнения";
+        isValid = false;
+      } else if (!this.newClient.email.includes("@")) {
+        this.errors.email = "Email должен содержать символ @";
+        isValid = false;
+      }
+
+      // Проверка адреса
+      if (!this.newClient.address.trim()) {
+        this.errors.address = "Адрес обязателен для заполнения";
+        isValid = false;
+      }
+
+      // Проверка автомобиля
+      if (!this.newClient.cars[0].brand.trim()) {
+        this.errors.brand = "Бренд автомобиля обязателен для заполнения";
+        isValid = false;
+      }
+
+      if (!this.newClient.cars[0].model.trim()) {
+        this.errors.model = "Модель автомобиля обязательна для заполнения";
+        isValid = false;
+      }
+
+      if (!this.newClient.cars[0].numbers.trim()) {
+        this.errors.numbers = "Номера автомобиля обязательны для заполнения";
+        isValid = false;
+      }
+
+      return isValid;
+    },
     async saveClient() {
+      if (!this.validateForm()) {
+        return;
+      }
+
       try {
         let response;
         if (this.isEditing) {
           const originalClient = this.clients.find(client => client.id === this.editingClientId);
           const clientDataChanged = (
-              this.newClient.name !== originalClient.name ||
-              this.newClient.phone !== originalClient.phone ||
-              this.newClient.email !== originalClient.email ||
-              this.newClient.address !== originalClient.address
-            );
-            const carDataChanged = (
-              this.newClient.cars[0].brand !== originalClient.cars[0].brand ||
-              this.newClient.cars[0].model !== originalClient.cars[0].model ||
-              this.newClient.cars[0].tireSize !== originalClient.cars[0].tireSize ||
-              this.newClient.cars[0].year !== originalClient.cars[0].year ||
-              this.newClient.cars[0].numbers !== originalClient.cars[0].numbers
-            );
-            const updatedClientData = {
-              id: this.editingClientId,
-              name: this.newClient.name,
-              phone: this.newClient.phone,
-              email: this.newClient.email,
-              address: this.newClient.address,
-              cars: originalClient.cars // Отправляем все машины, чтобы не потерять данные
-            };
-            const updatedCarData = {
-              id: this.newClient.cars[0].id || 0,
-              brand: this.newClient.cars[0].brand || "",
-              model: this.newClient.cars[0].model || "",
-              tireSize: this.newClient.cars[0].tireSize || 0,
-              year: this.newClient.cars[0].year || 0,
-              numbers: this.newClient.cars[0].numbers || "",
-              clientId: this.editingClientId
-            };
+            this.newClient.name !== originalClient.name ||
+            this.newClient.phone !== originalClient.phone ||
+            this.newClient.email !== originalClient.email ||
+            this.newClient.address !== originalClient.address
+          );
+          const carDataChanged = (
+            this.newClient.cars[0].brand !== originalClient.cars[0].brand ||
+            this.newClient.cars[0].model !== originalClient.cars[0].model ||
+            this.newClient.cars[0].tireSize !== originalClient.cars[0].tireSize ||
+            this.newClient.cars[0].year !== originalClient.cars[0].year ||
+            this.newClient.cars[0].numbers !== originalClient.cars[0].numbers
+          );
+          const updatedClientData = {
+            id: this.editingClientId,
+            name: this.newClient.name,
+            phone: this.newClient.phone,
+            email: this.newClient.email,
+            address: this.newClient.address,
+            cars: originalClient.cars
+          };
+          const updatedCarData = {
+            id: this.newClient.cars[0].id || 0,
+            brand: this.newClient.cars[0].brand || "",
+            model: this.newClient.cars[0].model || "",
+            tireSize: this.newClient.cars[0].tireSize || 0,
+            year: this.newClient.cars[0].year || 0,
+            numbers: this.newClient.cars[0].numbers || "",
+            clientId: this.editingClientId
+          };
           if (clientDataChanged && carDataChanged) {
-            await axios.put(`https://localhost:7288/api/Client/${this.editingClientId}`, updatedClientData);
-            await axios.put(`https://localhost:7288/api/Car/${this.newClient.cars[0].id}`, updatedCarData);
+            await axios.put(`${process.env.VUE_APP_API_URL}/Client/${this.editingClientId}`, updatedClientData);
+            await axios.put(`${process.env.VUE_APP_API_URL}/Car/${this.newClient.cars[0].id}`, updatedCarData);
           } else if (clientDataChanged) {
-            await axios.put(`https://localhost:7288/api/Client/${this.editingClientId}`, updatedClientData);
+            await axios.put(`${process.env.VUE_APP_API_URL}/Client/${this.editingClientId}`, updatedClientData);
           } else if (carDataChanged) {
-            console.log("this.newClient.cars[0].id:", this.newClient.cars[0].id);
-            await axios.put(`https://localhost:7288/api/Car/${this.newClient.cars[0].id}`, updatedCarData);
+            await axios.put(`${process.env.VUE_APP_API_URL}/Car/${this.newClient.cars[0].id}`, updatedCarData);
           }
-          const getResponse = await axios.get(`https://localhost:7288/api/Client/${this.editingClientId}`);
-            if (getResponse.data.code === "0") {
-              const updatedClient = getResponse.data.responseData;
-              const clientIndex = this.clients.findIndex(client => client.id === this.editingClientId);
-              if (clientIndex !== -1) {
-                this.clients[clientIndex] = { id: this.editingClientId, ...updatedClient };
-                this.clients = [...this.clients];
-              }
-            } else {
-              console.error('Ошибка при получении клиента после PUT:', getResponse.data.message);
+          const getResponse = await axios.get(`${process.env.VUE_APP_API_URL}/Client/${this.editingClientId}`);
+          if (getResponse.data.code === "0") {
+            const updatedClient = getResponse.data.responseData;
+            const clientIndex = this.clients.findIndex(client => client.id === this.editingClientId);
+            if (clientIndex !== -1) {
+              this.clients[clientIndex] = { id: this.editingClientId, ...updatedClient };
+              this.clients = [...this.clients];
             }
+          } else {
+            console.error('Ошибка при получении клиента после PUT:', getResponse.data.message);
+          }
         } else {
-          response = await axios.post('https://localhost:7288/api/Client/', this.newClient);
+          response = await axios.post(`${process.env.VUE_APP_API_URL}/Client/`, this.newClient);
           if (response.data.code === "201") {
             const newClient = response.data.responseData;
-            console.log('Получен новый клиент от API:', newClient);
             if (newClient && newClient.id) {
               this.clients = [...this.clients, newClient];
             } else {
@@ -266,9 +375,7 @@ export default {
     },
     async deleteClient(id) {
       try {
-        console.log(id);
-        const response = await axios.delete(`https://localhost:7288/api/Client/${id}`);
-        console.log(response.status);
+        const response = await axios.delete(`${process.env.VUE_APP_API_URL}/Client/${id}`);
         if (response.status === 204) {
           this.clients = this.clients.filter(client => client.id !== id);
         } else {
@@ -297,6 +404,15 @@ export default {
           numbers: "",
           clientId: 0
         }]
+      };
+      this.errors = {
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+        brand: "",
+        model: "",
+        numbers: ""
       };
     }
   }

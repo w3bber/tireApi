@@ -3,12 +3,15 @@ import ClientsComponent from '../components/ClientsComponent.vue';
 import ServicesComponent from '@/components/ServicesComponent.vue';
 import EmployeesComponent from '@/components/EmployeesComponent.vue';
 import AppointmentsComponent from '@/components/AppointmentsComponent.vue';
+import HelloComponent from '@/components/HelloComponent.vue';
 
 const routes = [
   { path: '/clients', component: ClientsComponent },
   { path: '/services', component: ServicesComponent },
   { path: '/employees', component: EmployeesComponent },
-  { path: '/appointments', component: AppointmentsComponent }
+  { path: '/appointments', component: AppointmentsComponent },
+  { path: '/', component: HelloComponent }
+
 ];
 
 const router = createRouter({
