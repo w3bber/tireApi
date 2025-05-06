@@ -88,6 +88,10 @@ dotnet run
 - Entity Framework Core
 - Repository-Service паттерн
 - PostgreSQL
+- Vue
+- CSS
+- HTML
+- JS
 
 ## 📌 API Эндпоинты
 
