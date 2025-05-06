@@ -4,6 +4,13 @@ TireApi - это Web API для службы шиномонтажа. Проек�
 
 # [Тестирование в Postman](https://github.com/w3bber/tireApi/tree/main/assets/postman_screenshots)
 
+## Графический интерфейс на основе фреймворка Vue
+![](assets/1.png)
+![](assets/2.png)
+![](assets/3.png)
+![](assets/4.png)
+![](assets/5.png)
+
 
 ## ER-Диаграмма
 ![](assets/er_diagram.png)
